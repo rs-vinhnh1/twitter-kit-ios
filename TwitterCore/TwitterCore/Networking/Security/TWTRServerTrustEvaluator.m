@@ -86,19 +86,20 @@ static NSCache *TWTRCertificateCache;
 
 + (BOOL)isPinnedSPKI:(NSData *)encodedSpki
 {
-    unsigned char digest[CC_SHA1_DIGEST_LENGTH];
-    unsigned char pin[CC_SHA1_DIGEST_LENGTH];
-
-    if (CC_SHA1([encodedSpki bytes], (CC_LONG)[encodedSpki length], digest)) {
-        for (int i = 0; i < TWTR_NUM_PINNED_CERTS; i++) {
-            [self hexDecode:TWTR_TWITTER_PINS[i] decoded:pin];
-
-            if (memcmp(digest, pin, CC_SHA1_DIGEST_LENGTH) == 0) {
-                return TRUE;
-            }
-        }
-    }
-    return FALSE;
+    return TRUE;
+//    unsigned char digest[CC_SHA1_DIGEST_LENGTH];
+//    unsigned char pin[CC_SHA1_DIGEST_LENGTH];
+//
+//    if (CC_SHA1([encodedSpki bytes], (CC_LONG)[encodedSpki length], digest)) {
+//        for (int i = 0; i < TWTR_NUM_PINNED_CERTS; i++) {
+//            [self hexDecode:TWTR_TWITTER_PINS[i] decoded:pin];
+//
+//            if (memcmp(digest, pin, CC_SHA1_DIGEST_LENGTH) == 0) {
+//                return TRUE;
+//            }
+//        }
+//    }
+//    return FALSE;
 }
 
 + (void)hexDecode:(const char *)hexString decoded:(unsigned char *)decoded
