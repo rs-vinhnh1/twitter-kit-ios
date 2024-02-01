@@ -3448,6 +3448,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DB2241791C3DA603008A6DC7 /* TwitterKitTests.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				DEVELOPMENT_TEAM = "";
@@ -3460,6 +3461,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "TwitterKitTests/TwitterKit Tests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -3468,6 +3470,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DB2241791C3DA603008A6DC7 /* TwitterKitTests.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3479,6 +3482,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "TwitterKitTests/TwitterKit Tests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
@@ -3546,12 +3550,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DB2241761C3DA603008A6DC7 /* libTwitterKit.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				BITCODE_GENERATION_MODE = bitcode;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../vendor",
 					"$(PROJECT_DIR)",
 				);
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				"VALID_ARCHS[sdk=iphonesimulator*]" = x86_64;
 			};
 			name = Debug;
 		};
@@ -3559,12 +3566,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DB2241761C3DA603008A6DC7 /* libTwitterKit.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				BITCODE_GENERATION_MODE = bitcode;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../vendor",
 					"$(PROJECT_DIR)",
 				);
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				"VALID_ARCHS[sdk=iphonesimulator*]" = x86_64;
 			};
 			name = Release;
 		};
@@ -3572,6 +3582,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 37510DA81D3EC1080048227C /* TwitterKit.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_IDENTITY = "";
 				ENABLE_BITCODE = YES;
@@ -3583,6 +3594,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.twitter.sdk.ios;
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				"VALID_ARCHS[sdk=iphonesimulator*]" = x86_64;
 			};
 			name = Debug;
 		};
@@ -3590,6 +3603,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 37510DA81D3EC1080048227C /* TwitterKit.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_IDENTITY = "";
 				ENABLE_BITCODE = YES;
@@ -3601,6 +3615,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.twitter.sdk.ios;
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				"VALID_ARCHS[sdk=iphonesimulator*]" = x86_64;
 			};
 			name = Release;
 		};
