@@ -19,7 +19,7 @@
 
 NSString *const TWTRAPIConstantsStatusShowURL = @"/1.1/statuses/show.json";
 NSString *const TWTRAPIConstantsStatusLookUpURL = @"/1.1/statuses/lookup.json";
-NSString *const TWTRAPIConstantsStatusUpdateURL = @"/1.1/statuses/update.json";
+NSString *const TWTRAPIConstantsStatusUpdateURL = @"/2/tweets";
 NSString *const TWTRAPIConstantsStatusFavoriteURL = @"/1.1/favorites/create.json";
 NSString *const TWTRAPIConstantsStatusUnfavoriteURL = @"/1.1/favorites/destroy.json";
 NSString *const TWTRAPIConstantsStatusRetweetURLWithFormat = @"/1.1/statuses/retweet/%lld.json";

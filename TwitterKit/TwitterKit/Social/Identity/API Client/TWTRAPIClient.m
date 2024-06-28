@@ -51,7 +51,7 @@
 #import "TWTRUser.h"
 
 NSString *const TWTRTweetsNotLoadedKey = @"TweetsNotLoaded";
-static NSString *const TWTRAPIConstantsCreateTweetPath = @"/1.1/statuses/update.json";
+static NSString *const TWTRAPIConstantsCreateTweetPath = @"/2/tweets";
 static NSString *const TWTRAPIConstantsLikeTweetPath = @"/1.1/favorites/create.json";
 static NSString *const TWTRAPIConstantsUnlikeTweetPath = @"/1.1/favorites/destroy.json";
 static NSString *const TWTRAPIConstantsRetweetPath = @"/1.1/statuses/retweet/%@.json";

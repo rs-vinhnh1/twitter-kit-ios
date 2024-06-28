@@ -723,7 +723,7 @@
     [self.clientStub sendTweetWithText:@"1234"
                             completion:^(TWTRTweet *tweet, NSError *error){
                             }];
-    XCTAssertEqualObjects([self.clientStub.sentRequest.URL absoluteString], @"https://api.twitter.com/1.1/statuses/update.json");
+    XCTAssertEqualObjects([self.clientStub.sentRequest.URL absoluteString], @"https://api.twitter.com/2/tweets");
 }
 
 - (void)testSendTweet_usesPOST
@@ -829,7 +829,7 @@
                                mediaID:@"fakeID"
                             completion:^(TWTRTweet *_Nullable tweet, NSError *_Nullable error){
                             }];
-    XCTAssertEqualObjects([self.clientStub.sentRequest.URL absoluteString], @"https://api.twitter.com/1.1/statuses/update.json");
+    XCTAssertEqualObjects([self.clientStub.sentRequest.URL absoluteString], @"https://api.twitter.com/2/tweets");
     XCTAssertEqualObjects(self.clientStub.sentRequest.HTTPMethod, @"POST");
     XCTAssertEqualObjects([self.clientStub sentHTTPBodyString], @"media_ids=fakeID&status=tweet");
 }
