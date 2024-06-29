@@ -280,10 +280,6 @@ static void *TSETweetTextKVOCOntext = &TSETweetTextKVOCOntext;
 
     self.view.backgroundColor = [UIColor whiteColor];
 
-    TWTRBirdView *twitterLogo = [TWTRBirdView mediumBird];
-    twitterLogo.birdColor = [TWTRColorUtil blueColor];
-    self.navigationItem.titleView = twitterLogo;
-
     self.selectedAccount = _configuration.initiallySelectedAccount ?: _configuration.accounts.firstObject;
 
     self.scrollView.alwaysBounceVertical = YES;
