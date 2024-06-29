@@ -196,8 +196,8 @@ static id<TWTRSessionStore_Private> TWTRSharedSessionStore = nil;
     TWTRParameterAssertOrReturn(mediaID);
     TWTRParameterAssertOrReturn(completion);
 
-    NSDictionary *parameters = @{@"status": tweetText, @"media_ids": mediaID};
-    [self postToAPIPath:TWTRAPIConstantsCreateTweetPath
+    NSDictionary *parameters = @{@"text": tweetText, @"media": @{@"media_ids": @[mediaID]}};
+    [self postToCreateTweetPath:TWTRAPIConstantsCreateTweetPath
              parameters:parameters
              completion:^(NSURLResponse *response, NSDictionary *responseDict, NSError *error) {
 
@@ -743,6 +743,11 @@ static id<TWTRSessionStore_Private> TWTRSharedSessionStore = nil;
     [self performHTTPMethod:@"POST" onURL:[self apiURLWithPath:apiPath] expectedType:[NSDictionary class] parameters:parameters completion:completion];
 }
 
+- (void)postToCreateTweetPath:(nonnull NSString *)apiPath parameters:(NSDictionary *)parameters completion:(TWTRJSONRequestCompletion)completion
+{
+    [self performHTTPMethodv2:@"POST" onURL:[self apiURLWithPath:apiPath] expectedType:[NSDictionary class] parameters:parameters completion:completion];
+}
+
 - (void)uploadWithParameters:(NSDictionary *)parameters completion:(TWTRJSONRequestCompletion)completion
 {
     [self performHTTPMethod:@"POST" onURL:[self uploadURL] expectedType:[NSDictionary class] parameters:parameters completion:completion];
@@ -754,6 +759,54 @@ static id<TWTRSessionStore_Private> TWTRSharedSessionStore = nil;
 
     NSError *requestError = nil;
     NSURLRequest *request = [self URLRequestWithMethod:method withURL:url parameters:parameters error:&requestError];
+    if (!request) {
+        completion(nil, nil, requestError);
+        return;
+    }
+
+    [self sendTwitterRequest:request
+                       queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+                  completion:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                      id responseObject = nil;
+                      NSError *errorToReturn = nil;
+
+                      if (data.length > 0) {
+                          NSError *jsonParsingError;
+                          responseObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonParsingError];
+
+                          if (responseObject == nil) {
+                              errorToReturn = jsonParsingError;
+                          } else if (![responseObject isKindOfClass:expectedClass]) {
+                              NSString *errorString = [NSString stringWithFormat:@"Invalid type encountered when loading API path: %@. Expected %@ got %@", url.absoluteString, NSStringFromClass(expectedClass), NSStringFromClass([responseObject class])];
+                              errorToReturn = [NSError errorWithDomain:TWTRErrorDomain code:TWTRErrorCodeMismatchedJSONType userInfo:@{NSLocalizedDescriptionKey: errorString}];
+                              responseObject = nil;
+                          }
+                      } else {
+                          errorToReturn = connectionError;
+                      }
+                      completion(response, responseObject, errorToReturn);
+                  }];
+}
+
+- (void)performHTTPMethodv2:(nonnull NSString *)method onURL:(NSURL *)url expectedType:(Class)expectedClass parameters:(NSDictionary *)parameters completion:(TWTRJSONRequestCompletion)completion
+{
+    TWTRCheckArgumentWithCompletion(url, completion);
+
+    TWTRSessionStore *store = [[TWTRTwitter sharedInstance] sessionStore];
+    TWTRSession *lastSession = store.session;
+    if (!lastSession) {
+        NSError *error = [NSError errorWithDomain:TWTRErrorDomain code:TWTRErrorCodeUnknown userInfo:@{NSLocalizedDescriptionKey: @"No session available"}];
+        completion(nil, nil, error);
+        return;
+    }
+    
+    NSError *requestError = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:&requestError];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:method];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:jsonData];
     if (!request) {
         completion(nil, nil, requestError);
         return;

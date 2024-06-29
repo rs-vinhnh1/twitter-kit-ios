@@ -101,14 +101,14 @@
             return;
         }
 
-        BOOL missingValue = dictionary[key] == nil;
-
-        /// Fail if required key is missing and all aternates are missing or not the correct class
-        if (missingValue) {
-            *stop = YES;
-            isValid = NO;
-            NSLog(@"Failed JSON validation because of missing key %@", key);
-        }
+//        BOOL missingValue = dictionary[key] == nil;
+//
+//        /// Fail if required key is missing and all aternates are missing or not the correct class
+//        if (missingValue) {
+//            *stop = YES;
+//            isValid = NO;
+//            NSLog(@"Failed JSON validation because of missing key %@", key);
+//        }
     }];
 
     return isValid;
